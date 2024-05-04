@@ -58,8 +58,20 @@ char editorReadKey() {
 
 /*** output ***/
 
+void editorDrawRows() {
+    int y;
+    for (y = 0; y < 24; y++) {
+        write(STDOUT_FILENO, "~\r\n", 3);
+    }
+}
+
 void editorRefreshScreen() {
-    write(STDOUT_FILENO, "\x1b[2J", 4);
+    //VT100 Terminal escape sequence commands 
+    write(STDOUT_FILENO, "\x1b[2J", 4); // Clears Screen
+    write(STDOUT_FILENO, "\x1b[H", 3); // Sets Cursor to top left
+
+    editorDrawRows();
+
     write(STDOUT_FILENO, "\x1b[H", 3);
 }
 
